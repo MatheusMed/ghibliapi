@@ -78,12 +78,15 @@ class HomeView extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => ViewGhibli(ghibliModel: item),
                           )),
-                      leading: CachedNetworkImage(
-                        imageUrl: item.image!,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                      leading: Hero(
+                        tag: item.id!,
+                        child: CachedNetworkImage(
+                          imageUrl: item.image!,
+                          placeholder: (context, url) =>
+                              const CircularProgressIndicator(),
+                          errorWidget: (context, url, error) =>
+                              const Icon(Icons.error),
+                        ),
                       ),
                       title: Text(item.title!),
                       subtitle: Text(item.director!),

@@ -22,12 +22,16 @@ class ViewGhibli extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CachedNetworkImage(
-                  imageUrl: ghibliModel.image!,
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  placeholder: (context, url) =>
-                      const CircularProgressIndicator(),
-                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                Hero(
+                  tag: ghibliModel.id!,
+                  child: CachedNetworkImage(
+                    imageUrl: ghibliModel.image!,
+                    width: MediaQuery.of(context).size.width * 0.7,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
                 TextRow(title: "Title:", description: ghibliModel.title!),
                 TextRow(
