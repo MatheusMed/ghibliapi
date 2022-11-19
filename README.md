@@ -1,4 +1,4 @@
-# ghibliapi
+# ghibliapp
 
 A new Flutter project.
 
