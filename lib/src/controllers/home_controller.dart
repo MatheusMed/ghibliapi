@@ -87,6 +87,7 @@ class HomeController extends ChangeNotifier {
       notifyListeners();
     } else {
       getAllMovies();
+      getAllMovieOff();
     }
   }
 }

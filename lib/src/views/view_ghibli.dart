@@ -37,7 +37,7 @@ class ViewGhibli extends StatelessWidget {
                 TextRow(
                     title: "Original title:",
                     description: ghibliModel.originalTitle!),
-                TextRow(title: "director:", description: ghibliModel.director!),
+                TextRow(title: "Director:", description: ghibliModel.director!),
                 TextRow(
                     title: "Release year:",
                     description: ghibliModel.releaseDate!),
