@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:ghibliapi/src/models/ghibli_model.dart';
 import 'package:ghibliapi/src/services/get_services_ghibli/get_service_ghibli_imp.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../core/helpers/database_helper.dart';
@@ -40,23 +37,29 @@ class HomeController extends ChangeNotifier {
 
   Future<void> getAllMovies() async {
     final listaOff = await getAllMovieOff();
-    isLoading = true;
+
     try {
+      isLoading = true;
       final list = await imp.getAll();
       listValeu.value = list;
       isLoading = false;
       notifyListeners();
     } catch (e) {
+      isLoading = false;
       listValeu.value = listaOff;
       notifyListeners();
     }
   }
 
-  void saveRequest() {
+  void saveRequest() async {
     final lista = listValeu.value;
-    lista.forEach((element) {
-      add(element);
-    });
+    final listaOff = await getAllMovieOff();
+    if (listaOff.isEmpty) {
+      // ignore: avoid_function_literals_in_foreach_calls
+      lista.forEach((element) {
+        add(element);
+      });
+    }
   }
 
   togleSearch() {
@@ -69,6 +72,7 @@ class HomeController extends ChangeNotifier {
     }
     controllerSearch.clear();
     getAllMovies();
+    getAllMovieOff();
     notifyListeners();
   }
 

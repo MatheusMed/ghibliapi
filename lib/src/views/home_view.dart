@@ -23,22 +23,37 @@ class HomeView extends StatelessWidget {
                   ? TextFormField(
                       controller: controller.controllerSearch,
                       onChanged: (value) => controller.searchFilms(value),
+                      onFieldSubmitted: (newValue) =>
+                          controller.searchFilms(newValue),
                       decoration:
-                          InputDecoration(label: Text("Pesquise o filme")),
+                          const InputDecoration(label: Text("Search movie")),
                     )
                   : const Text('Ghibli List Movie');
             }),
         centerTitle: true,
         actions: [
           IconButton(
-              onPressed: () => controller.saveRequest(),
+              onPressed: () {
+                controller.saveRequest();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: Colors.grey.shade700,
+                    content: Text(
+                      "Data saved offline",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              },
               icon: const Icon(Icons.refresh)),
           ValueListenableBuilder(
               valueListenable: controller.searchTap,
               builder: (context, valor, child) {
                 return IconButton(
                   onPressed: () => controller.togleSearch(),
-                  icon: valor == false ? Icon(Icons.search) : Icon(Icons.close),
+                  icon: valor == false
+                      ? const Icon(Icons.search)
+                      : const Icon(Icons.close),
                 );
               }),
         ],
